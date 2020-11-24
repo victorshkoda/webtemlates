@@ -1,2 +1,2 @@
 # webtemlates
-Template web project
+Templates for web project
