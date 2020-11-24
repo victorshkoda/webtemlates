@@ -1,4 +1,12 @@
-$bodycolor: #d7e6e6;
+$bodycolor: #96a0a0;
 body{
   background: $bodycolor;
+}
+.img{
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+  img{
+    width: 100%;
+  }
 }

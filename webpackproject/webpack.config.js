@@ -7,6 +7,7 @@ const TerserPlugin = require("terser-webpack-plugin")
 const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin")
 
 const isDev = process.env.NODE_ENV === 'development'
+
 const optimization = () => {
     const config = {
         splitChunks: {
@@ -25,6 +26,7 @@ const optimization = () => {
 const filename = ext => isDev ? `[name].${ext}` : `[name].[hash].${ext}`
 
 module.exports = {
+    target: process.env.NODE_ENV === "development" ? "web" : "browserslist",
     context: path.resolve(__dirname, 'src'),
     mode: 'development',
     entry: {
@@ -53,7 +55,7 @@ module.exports = {
         new CopyWebpackPlugin({
             patterns: [
                 {
-                    from: path.resolve(__dirname, 'src/assets/images'),
+                    from: path.resolve(__dirname, 'src/images'),
                     to: path.resolve(__dirname, 'dist/images/')
                 }
             ],
@@ -111,13 +113,33 @@ module.exports = {
                 use: {
                     loader: "babel-loader",
                     options: {
-                        presets: ['@babel/preset-env']
+                        presets: [
+                            '@babel/preset-env'
+                        ],
+                        plugins: ['@babel/plugin-proposal-class-properties']
+                    }
+                }
+            },
+            {
+                test: /\.ts$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: "babel-loader",
+                    options: {
+                        presets: [
+                            '@babel/preset-env',
+                            '@babel/preset-typescript'
+                        ],
+                        plugins: ['@babel/plugin-proposal-class-properties']
                     }
                 }
             }
         ]
     },
     devServer: {
-        port: 3000
-    }
+        port: 3000,
+        contentBase: path.resolve(__dirname, './dist'),
+        open: true
+    },
+    devtool: isDev ? 'source-map' : false
 }

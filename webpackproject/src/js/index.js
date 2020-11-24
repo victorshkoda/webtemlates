@@ -10,3 +10,7 @@ $('pre').html(post.toString())
 console.log(test)
 console.log(xml)
 console.log(csv)
+async function start(){
+    return await Promise.resolve("Working async")
+}
+start().then(console.log)
