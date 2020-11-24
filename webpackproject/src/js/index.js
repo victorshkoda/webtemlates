@@ -1,4 +1,5 @@
 import '@css/style.css'
+import '@scss/style.scss'
 import * as $ from 'jquery'
 import test from '@/test'
 import xml from '@/test.xml'

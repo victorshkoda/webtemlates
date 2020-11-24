@@ -3,8 +3,26 @@ const HTMLVebpackPlugin = require('html-webpack-plugin')
 const{CleanWebpackPlugin} = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssEkstractPlugin = require('mini-css-extract-plugin')
+const TerserPlugin = require("terser-webpack-plugin")
+const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin")
 
 const isDev = process.env.NODE_ENV === 'development'
+const optimization = () => {
+    const config = {
+        splitChunks: {
+            chunks: 'all',
+        }
+    }
+    if(!isDev){
+        config.minimizer = [
+           new OptimizeCssAssetsWebpackPlugin(),
+           new TerserPlugin()
+        ]
+    }
+    return config
+}
+
+const filename = ext => isDev ? `[name].${ext}` : `[name].[hash].${ext}`
 
 module.exports = {
     context: path.resolve(__dirname, 'src'),
@@ -13,35 +31,35 @@ module.exports = {
         main:'./js/index.js',
     },
     output: {
-        filename: '[name].[contenthash].js',
+        filename: filename('js'),
         path: path.resolve(__dirname, 'dist')
     },
     resolve:{
         alias:{
             '@': path.resolve(__dirname, 'src/assets'),
-            '@css': path.resolve(__dirname, 'src/css')
+            '@css': path.resolve(__dirname, 'src/css'),
+            '@scss': path.resolve(__dirname, 'src/scss')
         }
     },
-    optimization: {
-        splitChunks: {
-            chunks: 'all'
-        }
-    },
+    optimization: optimization(),
     plugins: [
         new HTMLVebpackPlugin({
-            template: './index.html'
+            template: './index.html',
+            minify: {
+                collapseWhitespace: !isDev
+            }
         }),
         new CleanWebpackPlugin(),
         new CopyWebpackPlugin({
             patterns: [
                 {
-                    from: path.resolve(__dirname, 'src/assets/favicon.ico'),
-                    to: path.resolve(__dirname, 'dist/images/favicon.ico')
+                    from: path.resolve(__dirname, 'src/assets/images'),
+                    to: path.resolve(__dirname, 'dist/images/')
                 }
             ],
         }),
         new MiniCssEkstractPlugin({
-            filename: '[name].[contenthash].css'
+            filename: filename('css')
         })
     ],
     module: {
@@ -56,6 +74,19 @@ module.exports = {
                         },
                     },
                     'css-loader'
+                ],
+            },
+            {
+                test: /\.scss$/,
+                use: [
+                    {
+                        loader: MiniCssEkstractPlugin.loader,
+                        options: {
+                            publicPath: '',
+                        },
+                    },
+                    'css-loader',
+                    'sass-loader'
                 ],
             },
             {
