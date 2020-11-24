@@ -43,6 +43,6 @@
     "normalize.css": "^8.0.1"
   },
   "browserslist": [
-    "cover 99.5%"
+    "defaults"
   ]
 }
