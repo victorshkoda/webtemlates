@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://victorshkoda.tk/</loc>
+        <lastmod>2020-11-17T17:25:48+00:00</lastmod>
+        <priority>0.99</priority>
+    </url>
+    <url>
+        <loc>https://victorshkoda.tk/retouch-panel/ru/</loc>
+        <lastmod>2020-11-17T18:49:22+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://victorshkoda.tk/ustanovka-ubuntu-servera-na-virtualbox/</loc>
+        <lastmod>2020-11-17T17:25:37+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://victorshkoda.tk/retouch-panel/en/</loc>
+        <lastmod>2020-11-17T18:49:09+00:00</lastmod>
+        <priority>1.00</priority>
+    </url>
+</urlset>

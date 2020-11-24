@@ -1,0 +1,19 @@
+@import "~normalize.css";
+@import "fonts.css";
+
+h1{
+    font-family: m_Ben Krush, sans-serif;
+    color: #0e6f86;
+    text-align: center;
+    font-size: 90px;
+    padding: 10px 0;
+    text-shadow: -3px 3px 1px #334848;
+
+}
+.logo{
+    background: url("../assets/mylogo.svg");
+    background-size: cover;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+}

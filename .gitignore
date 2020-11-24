@@ -1,2 +1,5 @@
 .idea/
 .idea
+/webpackproject/package-lock.json
+/webpackproject/node_modules/
+/webpackproject/dist/
