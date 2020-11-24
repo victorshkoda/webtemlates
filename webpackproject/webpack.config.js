@@ -75,7 +75,8 @@ module.exports = {
                             publicPath: '',
                         },
                     },
-                    'css-loader'
+                    'css-loader',
+                    'postcss-loader'
                 ],
             },
             {
@@ -88,6 +89,7 @@ module.exports = {
                         },
                     },
                     'css-loader',
+                    'postcss-loader',
                     'sass-loader'
                 ],
             },
