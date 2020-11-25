@@ -46,7 +46,14 @@ module.exports = {
     optimization: optimization(),
     plugins: [
         new HTMLVebpackPlugin({
-            template: './index.html',
+            filename: 'next.html',
+            template: 'next.html',
+            minify: {
+                collapseWhitespace: !isDev
+            }
+        }),
+        new HTMLVebpackPlugin({
+            template: 'index.html',
             minify: {
                 collapseWhitespace: !isDev
             }

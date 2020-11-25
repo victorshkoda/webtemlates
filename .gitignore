@@ -3,3 +3,5 @@
 /webpackproject/package-lock.json
 /webpackproject/node_modules/
 /webpackproject/dist/
+/gulpproject/package-lock.json
+/gulpproject/node_modules/
