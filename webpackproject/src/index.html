@@ -5,25 +5,29 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="shortcut icon" href="images/favicon.ico" />
-    <link rel="icon" type="image/vnd.microsoft.icon" href="images/favicon.ico">
-    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
-    <link rel="icon" href="images/favicon.ico" />
+    <link rel="shortcut icon" href="assets/images/favicon.ico" />
+    <link rel="icon" type="image/vnd.microsoft.icon" href="assets/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <link rel="icon" href="assets/images/favicon.ico" />
     <title>Document</title>
 </head>
 <body>
-<div class="container">
-    <h1>Webpack</h1>
-    <hr>
-    <div class="nav"><a href="./testrout" class="nextpage">Next page</a></div>
-    <hr>
-    <div class="logo"></div>
-    <hr>
-    <pre></pre>
-    <hr>
-    <div class="img">
-        <img src="images/mylogo.png" alt="">
+<div id="app">
+    <div class="container">
+        <example-component v-if="component"></example-component>
+        <h1>Webpack</h1>
+        <hr>
+        <div class="nav"><a href="./testrout" class="nextpage">Next page</a></div>
+        <hr>
+        <div class="logo" @click="component = !component"></div>
+        <hr>
+        <pre></pre>
+        <hr>
+        <div class="img">
+            <img src="assets/images/mylogo.png" alt="">
+        </div>
     </div>
 </div>
+
 </body>
 </html>

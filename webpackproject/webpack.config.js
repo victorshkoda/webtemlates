@@ -5,8 +5,15 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssEkstractPlugin = require('mini-css-extract-plugin')
 const TerserPlugin = require("terser-webpack-plugin")
 const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin")
+const {VueLoaderPlugin} = require('vue-loader')
 
 const isDev = process.env.NODE_ENV === 'development'
+
+const PATHS = {
+    src: path.resolve(__dirname, 'src'),
+    dist: path.resolve(__dirname, 'dist'),
+    assets: 'assets/'
+}
 
 const optimization = () => {
     const config = {
@@ -23,28 +30,31 @@ const optimization = () => {
     return config
 }
 
-const filename = ext => isDev ? `[name].${ext}` : `[name].[hash].${ext}`
+const filename = (di, ext) => isDev ? `${di}/[name].${ext}` : `${di}/[name].[hash].${ext}`
+const filenameothers = (di, ext) => isDev ? `assets/${di}/[name].${ext}` : `assets/${di}/[name].[hash].${ext}`
 
 module.exports = {
     target: process.env.NODE_ENV === "development" ? "web" : "browserslist",
-    context: path.resolve(__dirname, 'src'),
+    context: PATHS.src,
     mode: 'development',
     entry: {
-        main:['@babel/polyfill', './js/index.js'],
+        main:['@babel/polyfill', './index.js'],
     },
     output: {
-        filename: filename('js'),
-        path: path.resolve(__dirname, 'dist')
+        filename: filename('js','js'),
+        path: PATHS.dist
     },
     resolve:{
         alias:{
             '@': path.resolve(__dirname, 'src/assets'),
-            '@css': path.resolve(__dirname, 'src/css'),
-            '@scss': path.resolve(__dirname, 'src/scss')
+            '@js': path.resolve(__dirname, 'src/js'),
+            '@scss': path.resolve(__dirname, 'src/scss'),
+            'vue$': 'vue/dist/vue.js'
         }
     },
     optimization: optimization(),
     plugins: [
+        new VueLoaderPlugin(),
         new HTMLVebpackPlugin({
             filename: 'testrout/index.html',
             template: path.resolve(__dirname, 'src/testrout/index.html'),
@@ -62,13 +72,13 @@ module.exports = {
         new CopyWebpackPlugin({
             patterns: [
                 {
-                    from: path.resolve(__dirname, 'src/images'),
-                    to: path.resolve(__dirname, 'dist/images/')
+                    from: path.resolve(__dirname, 'src/assets/images'),
+                    to: path.resolve(__dirname, 'dist/assets/images/')
                 }
             ],
         }),
         new MiniCssEkstractPlugin({
-            filename: filename('css')
+            filename: filename('css','css')
         })
     ],
     module: {
@@ -92,7 +102,7 @@ module.exports = {
                     {
                         loader: MiniCssEkstractPlugin.loader,
                         options: {
-                            publicPath: '',
+                            publicPath: '../',
                         },
                     },
                     'css-loader',
@@ -102,19 +112,31 @@ module.exports = {
             },
             {
                 test: /\.(png|jpg|svg|gif)$/,
-                use: ['file-loader'],
+                loader: 'file-loader',
+                options: {
+                    name: filenameothers('images', '[ext]')
+                }
             },
             {
                 test: /\.(ttf|woff|woff2|eot)$/,
-                use: ['file-loader'],
+                loader: 'file-loader',
+                options: {
+                    name: filenameothers('fonts', '[ext]')
+                }
             },
             {
                 test: /\.xml$/,
-                use: ['xml-loader'],
+                loader: 'xml-loader',
+                options: {
+                    name: filenameothers('files', '[ext]')
+                }
             },
             {
                 test: /\.csv$/,
-                use: ['csv-loader'],
+                loader: 'csv-loader',
+                options: {
+                    name: filenameothers('files', '[ext]')
+                }
             },
             {
                 test: /\.js$/,
@@ -126,6 +148,17 @@ module.exports = {
                             '@babel/preset-env'
                         ],
                         plugins: ['@babel/plugin-proposal-class-properties']
+                    }
+                }
+            },
+            {
+                test: /\.vue$/,
+                use: {
+                    loader: "vue-loader",
+                    options: {
+                        loader: {
+                            scss: 'vue-style-loader!css-loader!sass-loader'
+                        }
                     }
                 }
             },

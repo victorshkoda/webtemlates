@@ -1,16 +1,13 @@
-import '@css/style.css'
-import '@scss/style.scss'
-import * as $ from 'jquery'
-import test from '@/test'
-import xml from '@/test.xml'
-import csv from '@/test.csv'
-import Post from "./Post";
-const post = new Post("Post title")
-$('pre').html(post.toString())
-console.log(test)
-console.log(xml)
-console.log(csv)
+// import test from '@/test'
+// import xml from '@/test.xml'
+// import csv from '@/test.csv'
+// console.log('json', test)
+// console.log('xml', xml)
+// console.log('csv', csv)
+// import Post from "./Post";
+// const post = new Post("Post title")
+// console.log(post)
 async function start(){
-    return await Promise.resolve("Working async")
+    return await Promise.resolve("Working async!")
 }
 start().then(console.log)
