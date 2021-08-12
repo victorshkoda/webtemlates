@@ -8,3 +8,5 @@
 /gulpproject/dist/
 /vuethree/node_modules/
 /vuethree/package-lock.json
+/simpleproject/node_modules/
+/simpleproject/package-lock.json
